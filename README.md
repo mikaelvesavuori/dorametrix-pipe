@@ -1,6 +1,6 @@
-# Bitbucket Pipelines Pipe: dorametrix-pipe
+# Bitbucket Pipelines Pipe: `dorametrix-pipe`
 
-<pipe_short_description>
+Conveniently call [Dorametrix](https://github.com/mikaelvesavuori/dorametrix) to create a deployment event.
 
 Looking for a demo? In that case you might be interested in the [Dorametrix Pipe demo](https://github.com/mikaelvesavuori/demo-dorametrix-pipe).
 
@@ -8,24 +8,70 @@ Looking for a demo? In that case you might be interested in the [Dorametrix Pipe
 
 Add the following snippet to the script section of your `bitbucket-pipelines.yml` file:
 
-<pipe_code_snippet>
+```yml
+- pipe: docker://mikaelvesavuori/dorametrix-pipe:1.0.0
+  variables:
+    ENDPOINT: "$ENDPOINT"
+    API_KEY: "$API_KEY"
+    PRODUCT: "$BITBUCKET_REPO_SLUG"
+```
 
 ## Variables
 
-<pipe_variables_table>
+Ideally set these as repository variables ("secrets").
+
+### `endpoint`
+
+Environment variable name: `ENDPOINT`.
+
+Dorametrix API endpoint, in the format `https://mydomain.com/stagename`.
+
+### `api-key`
+
+Environment variable name: `API_KEY`.
+
+Dorametrix API token.
+
+### `product` (optional)
+
+Environment variable name: `PRODUCT`.
+
+The product name can be optionally set. If not, it will default to the repository name.
 
 ## Details
 
-<pipe_long_description>
+This Action uses two secrets: `ENDPOINT` and `API_KEY`, as described above.
 
 ## Prerequisites
 
-<pipe_prerequisites>
+- Set the required environment variables, `ENDPOINT` and `API_KEY`.
+- Always ensure you have secure settings regarding what actions you allow.
+- Note that Dorametrix will _not_ work without access to the Git history (i.e. `with.fetch-depth: 0`).
 
 ## Examples
 
-<pipe_code_examples>
+```yml
+image:
+  name: atlassian/default-image:3
+
+pipelines:
+  default:
+    - step:
+        name: Dorametrix
+        script:
+          - pipe: docker://mikaelvesavuori/dorametrix-pipe:1.0.0
+            variables:
+              ENDPOINT: "$ENDPOINT"
+              API_KEY: "$API_KEY"
+              PRODUCT: "$BITBUCKET_REPO_SLUG"
+```
 
 ## Support
 
-<pipe_support>
+Please create an issue on [GitHub](https://github.com/mikaelvesavuori/dorametrix-pipe/issues).
+
+If you're reporting an issue, please include:
+
+- The version of the pipe
+- Relevant logs and error messages
+- Steps to reproduce the issue
