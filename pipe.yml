@@ -1,0 +1,22 @@
+name: Dorametrix
+image: ghcr.io/mikaelvesavuori/dorametrix-pipe:0.0.1
+description: Conveniently create a deployment event in Dorametrix.
+category: Deployment
+repository: mikaelvesavuori/dorametrix-pipe
+maintainer:
+  name: Mikael Vesavuori
+  website: https://www.mikaelvesavuori.se/
+  email: mikaelvesavuori@gmail.com
+variables:
+  - name: ENDPOINT
+    default: "$ENDPOINT"
+  - name: API_KEY
+    default: "$API_KEY"
+  - name: PRODUCT
+    default: "$BITBUCKET_REPO_SLUG"
+tags:
+  - dorametrix
+  - dora
+  - dora-metrics
+  - devops
+  - software-delivery
